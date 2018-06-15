@@ -1,5 +1,8 @@
 # auto-tagging-imag-pretrained-model
 Auto tagging images with Google OpenImage pre-trained model (v2)
+
+**Links:** [OpenImage](https://github.com/openimages/dataset), [Pretrained model used in this project](https://storage.googleapis.com/openimages/web/extras.html)
+
 ### Require Python 2.7, [pip](https://pip.pypa.io/en/stable/installing/)
 
 1. Install python virtual environment
@@ -39,7 +42,6 @@ Auto tagging images with Google OpenImage pre-trained model (v2)
 [Download link](https://www.dropbox.com/s/kx5n8bjwhl9qecx/pretrain_open_images.zip?dl=0)
 Unzip the zip file and put all the files inside it into folder **pretrain_open_images** of the project
 
-4. Run the test.py for testing tagging images in folder **test_images** and get the tagging result in **result.json** file
-**Note**: Before running, the virtual environment must be active (*see Step 1 above*)
+4. Run the test.py for testing tagging images in folder **test_images** and get the tagging result in **result.json** file. **Note**: Before running, the virtual environment must be active (*see Step 1 above*)
 Result in json format looks like this:
 ![alt text](https://www.dropbox.com/s/ziw2ihn7nxpkmig/tagging_result.png?raw=1 "Tagging result")
