@@ -11,7 +11,7 @@ import time
 import os.path
 import tensorflow as tf
 
-# os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2,3"
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
@@ -47,6 +47,8 @@ class AutoTagEngine:
 
     label_map = None
     label_dict = None
+    label_5000_list = []
+
     flags = FLAGS
 
     @staticmethod
@@ -59,6 +61,9 @@ class AutoTagEngine:
                 words = [word.strip(' "\n') for word in line.split(',', 1)]
                 AutoTagEngine.label_dict[words[0]] = words[1]
 
+            for label_id in AutoTagEngine.label_map:
+                AutoTagEngine.label_5000_list.append(AutoTagEngine.label_dict[label_id])
+
     @staticmethod
     def make_batch_predictions(images_list_urls, batch_size=1000):
 
@@ -68,7 +73,7 @@ class AutoTagEngine:
         if total_images % batch_size > 0:
             num_batch += 1
 
-        # result = {image_url:[{'tag': 'abc', prob: 0.5}, ...]}
+        # result = {image_name:[prob1, prob2,...,prob5000], ...]}
         result = {}
 
         for index in range(int(num_batch)):
@@ -121,27 +126,8 @@ class AutoTagEngine:
                             predictions, feed_dict={
                                 input_values: [compressed_image]
                             })
-                        top_k = predictions_eval.argsort()[::-1]  # indices sorted by score
 
-                        if AutoTagEngine.flags.top_k > 0:
-                            top_k = top_k[:AutoTagEngine.flags.top_k]
-
-                        if AutoTagEngine.flags.score_threshold is not None:
-                            top_k = [i for i in top_k
-                                     if predictions_eval[i] >= AutoTagEngine.flags.score_threshold]
-
-                        # print('Image: "%s"\n' % image_filename)
-
-                        list_predict = []
-                        for idx in top_k:
-                            mid = AutoTagEngine.label_map[idx]
-                            display_name = AutoTagEngine.label_dict[mid]
-                            score = predictions_eval[idx]
-
-                            one_predict = {'tag': display_name, 'prob': float(score)}
-                            list_predict.append(one_predict)
-
-                        predictions_dict[image_filename] = list_predict
+                        predictions_dict[image_filename] = predictions_eval
 
                     except KeyboardInterrupt:
                         raise
