@@ -1,11 +1,14 @@
 # auto-tagging-imag-pretrained-model
 Auto tagging images with Google OpenImage pre-trained model (v2)
+______________________________________________________________________
 
 **Links:** [OpenImage](https://github.com/openimages/dataset), [Pretrained model used in this project](https://storage.googleapis.com/openimages/web/extras.html)
 
 ### Require Python 2.7, [pip](https://pip.pypa.io/en/stable/installing/)
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/hahv/auto-tagging-imag-pretrained-model?style=social), ![Python version](https://img.shields.io/badge/python-2.7-brightgreen)
+
+______________________________________________________________________
 
 1. Install python virtual environment
 
